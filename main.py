@@ -11,7 +11,7 @@ password must include:
 Minimum  Length is 6 total Characters
 Maximum  Length is 16 total Characters"""
 
-class rand_pass():
+class RandPass:
     def __init__(self):
         print(Intro)
         self.upper = 0
@@ -19,13 +19,13 @@ class rand_pass():
         self.digits = 0
         self.char = 0
         self.password = []
-    def askfor_char(self):
 
-        flag=False
+    def askfor_char(self):
+        flag = False
         while not flag:
             print('\n')
             self.upper = int(input("How many Uppercase Characters: "))
-            if self.upper >= 1 and self.upper <= 13:
+            if 1 <= self.upper <= 13:
                 flag = True
             else:
                 print('Please select a number between 1 and 13')
@@ -33,7 +33,7 @@ class rand_pass():
         flag = False
         while not flag:
             self.lower = int(input("How many Lowercase Characters: "))
-            if self.lower >= 1 and self.lower <= 13:
+            if 1 <= self.lower <= 13:
                 flag = True
             else:
                 print('Please select a number between 1 and 13')
@@ -41,7 +41,7 @@ class rand_pass():
         flag = False
         while not flag:
             self.digits = int(input("How many Digits: "))
-            if self.digits >= 1 and self.digits <= 13:
+            if 1 <= self.digits <= 13:
                 flag = True
             else:
                 print('Please select a number between 1 and 13')
@@ -49,12 +49,10 @@ class rand_pass():
         flag = False
         while not flag:
             self.char = int(input("How many Special Characters: "))
-            if self.char >= 1 and self.char <= 13:
+            if 1 <= self.char <= 13:
                 flag = True
             else:
                 print('Please select a number between 1 and 13')
-
-
 
     def selection_char(self):
         for _ in range(self.upper):
@@ -66,7 +64,7 @@ class rand_pass():
         for _ in range(self.char):
             self.password.append(choice(string.punctuation))
         shuffle(self.password)
-        pass_string=''
+        pass_string = ''
 
         shuffle(self.password)
         for i in self.password:
@@ -74,26 +72,16 @@ class rand_pass():
         return pass_string
 
     def check_valid(self):
-        total = 0
-        total = self.char + self.upper + self.lower + self.digits
-        print('\n')
-        print('You have selected %d characters' % total)
-        if total > 16 or total < 6:
-            return False
-        else:
-            return True
+        # Directly check the total length condition
+        return 6 <= (self.char + self.upper + self.lower + self.digits) <= 16
 
-
-
-gen_p = rand_pass()
+gen_p = RandPass()
 t = False
 
 while not t:
     gen_p.askfor_char()
-    t= gen_p.check_valid()
-    if t == False:
-       print('Invalid amount of characters selected, Please try again')
+    t = gen_p.check_valid()
+    if not t:
+        print('Invalid amount of characters selected, Please try again')
 
 print('Your password is:   ', gen_p.selection_char())
-
-
